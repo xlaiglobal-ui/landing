@@ -20,20 +20,22 @@ export function Booking() {
         </p>
 
         <div className="mx-auto max-w-4xl overflow-hidden rounded-xl border border-border bg-white">
-          <iframe
-            src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0iqZPOjds6W4sRQ5G6UShQ0ZvMN7k5Yi1ULbYvrEzy3CTp9p8G2Lk912TL87F8G-YTsZpc9wRk?gv=true"
-            style={{ border: 0 }}
-            width="100%"
-            height="600"
-            frameBorder={0}
-            title="Book a Discovery Call with XLAI"
+          <div
+            className="calendly-inline-widget"
+            data-url="https://calendly.com/xlai-global/discovery"
+            style={{ minWidth: 320, height: 700 }}
+          />
+          <script
+            type="text/javascript"
+            src="https://assets.calendly.com/assets/external/widget.js"
+            async
           />
         </div>
 
         <p className="mt-4 text-xs text-muted-foreground">
           Having trouble?{" "}
           <a
-            href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0iqZPOjds6W4sRQ5G6UShQ0ZvMN7k5Yi1ULbYvrEzy3CTp9p8G2Lk912TL87F8G-YTsZpc9wRk?gv=true"
+            href="https://calendly.com/xlai-global/discovery"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary underline-offset-4 hover:underline"
