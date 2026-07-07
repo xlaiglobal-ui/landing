@@ -20,7 +20,7 @@ export function Nav() {
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-8">
           {/* Logo */}
           <a href="#" className="text-lg font-extrabold tracking-widest text-foreground">
-            XL<span className="text-primary">AI</span>
+            <span className="text-primary">XL</span>AI
           </a>
 
           {/* Desktop links */}
