@@ -233,7 +233,7 @@ export default function CareersPage() {
             letter — that story tells us more.
           </p>
           <Button asChild size="lg">
-            <a href="mailto:steve@xlai.live?subject=SDR%20Application">
+            <a href="mailto:info@xlai.live?subject=SDR%20Application">
               Apply for this role
               <ChevronRight className="size-4" />
             </a>
