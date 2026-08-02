@@ -18,6 +18,7 @@ export function Nav() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
   const isCareersPage = pathname === "/careers"
+  const hashHref = (hash: string) => (pathname === "/" ? hash : `/${hash}`)
 
   return (
     <>
@@ -45,27 +46,17 @@ export function Nav() {
 
           {/* Desktop links */}
           <nav className="hidden items-center gap-6 md:flex">
-            {links.map((l) =>
-              l.href.startsWith("/") ? (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {l.label}
-                </Link>
-              ) : (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {l.label}
-                </a>
-              )
-            )}
+            {links.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href.startsWith("/") ? l.href : hashHref(l.href)}
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {l.label}
+              </Link>
+            ))}
             <Button asChild size="sm">
-              <a href="#book">Book a Call</a>
+              <Link href={hashHref("#book")}>Book a Call</Link>
             </Button>
           </nav>
 
@@ -89,30 +80,19 @@ export function Nav() {
         )}
       >
         <nav className="flex flex-col gap-1 px-4 py-4">
-          {links.map((l) =>
-            l.href.startsWith("/") ? (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                {l.label}
-              </Link>
-            ) : (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                {l.label}
-              </a>
-            )
-          )}
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href.startsWith("/") ? l.href : hashHref(l.href)}
+              onClick={() => setOpen(false)}
+              className="rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              {l.label}
+            </Link>
+          ))}
           <div className="mt-2 pt-2 border-t border-border/60">
             <Button asChild className="w-full" onClick={() => setOpen(false)}>
-              <a href="#book">Book a Call</a>
+              <Link href={hashHref("#book")}>Book a Call</Link>
             </Button>
           </div>
         </nav>

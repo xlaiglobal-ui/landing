@@ -1,3 +1,5 @@
+import { ThemeToggle } from "@/components/theme-toggle"
+
 export function Footer() {
   return (
     <footer className="border-t border-border bg-card">
@@ -6,7 +8,10 @@ export function Footer() {
           <span className="text-primary">XL</span>AI
         </span>
         <span>Commission-Only B2B SaaS Sales Agency</span>
-        <span>© 2026 XLAI · xlai.live</span>
+        <div className="flex items-center gap-4">
+          <span>© 2026 XLAI · xlai.live</span>
+          <ThemeToggle />
+        </div>
       </div>
     </footer>
   )
