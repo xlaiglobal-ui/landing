@@ -11,13 +11,41 @@ export const metadata: Metadata = {
     "XLAI is hiring commission-only Sales Development Representatives. Remote, uncapped earnings, 4% commission on every deal that closes behind you.",
 }
 
-const tags = ["Remote", "Commission-Only", "Contract", "B2B SaaS", "Uncapped Earnings"]
+const tags = ["Remote", "Commission-Only", "Independent Contractor", "B2B SaaS"]
 
-const commissionRows = [
-  { deal: "$10,000", commission: "$400" },
-  { deal: "$25,000", commission: "$1,000" },
-  { deal: "$50,000", commission: "$2,000" },
-  { deal: "$100,000", commission: "$4,000" },
+const reasons = [
+  {
+    lead: "You go deep, not wide — and depth is where the money is.",
+    body: "One product, one ideal customer profile, fully assigned to you. No juggling five accounts and being mediocre at all of them. You become the person who gets this specific buyer, and that's exactly what makes a cold email land instead of get deleted.",
+  },
+  {
+    lead: "Our clients are genuinely good — and genuinely real.",
+    body: "Right now that includes an AI-powered legal contract platform backed by institutional investors, a fast-growing finance automation startup building the next generation of AI-driven accounts payable tools, and an early-stage media/entertainment technology company building in the digital identity space. These are real products solving real problems for real companies — not vaporware you'll feel weird pitching. You're representing something you can actually stand behind on a call.",
+  },
+  {
+    lead: "We hand you a loaded gun, not a blank page.",
+    body: "Vetted lead lists. A defined ICP. Messaging frameworks and AI tooling our team has already tested and iterated on. You're not starting from zero — you're starting from what's already working.",
+  },
+  {
+    lead: "Total freedom, zero micromanagement.",
+    body: "No one is watching your hours, your Slack status, or your “activity metrics.” You run your own operation. For people who are actually good at this, that's not a risk — it's the whole appeal.",
+  },
+  {
+    lead: "You'll get better, faster, than anywhere else.",
+    body: "As we build out this team, we'll run regular sessions to compare notes on what's converting in real time — not stale playbooks, live intel from the field. Most people spend their first sales job learning generic fundamentals. You'll spend it learning how to actually get replies from people who ignore 200 emails a day. That skill compounds for the rest of your career, wherever you take it next.",
+  },
+  {
+    lead: "Grow with us.",
+    body: "As XL AI takes on more clients, reps who perform get first pick of new accounts, bigger ICPs, and more senior roles inside the org — this is a place to build something, not just clock in.",
+  },
+  {
+    lead: "Attribution is airtight.",
+    body: "Every handoff is logged and tracked in email threads and our systems. If you booked it, you get paid for it. No gray areas, no “actually that one doesn't count.”",
+  },
+  {
+    lead: "Everything is in writing before you start anything.",
+    body: "A real agreement covering commission, payment timing, and lead ownership — reviewed by you before you commit to a thing.",
+  },
 ]
 
 function Section({
@@ -55,6 +83,9 @@ export default function CareersPage() {
         <h1 className="text-4xl font-black tracking-tight text-foreground sm:text-5xl">
           Sales Development Representative
         </h1>
+        <p className="mt-2 text-sm font-medium text-muted-foreground">
+          Remote &middot; Commission-Only &middot; Independent Contractor &middot; B2B SaaS
+        </p>
 
         <ul className="mt-6 mb-8 flex flex-wrap gap-2">
           {tags.map((t) => (
@@ -68,169 +99,136 @@ export default function CareersPage() {
         </ul>
 
         <p className="mb-10 border-l-2 border-primary pl-5 text-lg text-foreground">
-          You book qualified demos for B2B software companies. You earn 4% of every deal
-          that closes behind you. No base salary, no ceiling, no one counting your hours.
+          Your income has no ceiling. We mean that literally.
         </p>
 
-        <Section title="About XL AI" first>
+        <Section title="Your income has no ceiling" first>
           <p>
-            XL AI is a B2B SaaS sales agency. Software companies across legal, healthcare,
-            finance, and media hire us to fill their pipeline. Our SDRs run outbound on
-            their behalf — each rep is assigned one product and one ideal customer profile
-            at a time, so you go deep on a single market instead of spreading thin across
-            five.
+            Most &quot;entry-level&quot; sales jobs cap what you can earn — a fixed salary
+            whether you book 2 meetings or 20. XL AI doesn&apos;t work that way. You earn 4%
+            of every deal that closes from a meeting you booked, no cap, no diminishing
+            returns, no manager deciding you&apos;ve &quot;earned enough this quarter.&quot;
+          </p>
+          <p>
+            What does that actually look like? Land three mid-sized enterprise deals in a
+            month — the kind our clients close regularly — and you&apos;re looking at
+            several thousand dollars from a handful of great conversations. Land one big
+            one, and that single deal can outearn what a salaried SDR makes in months.
+            There&apos;s no ceiling because we don&apos;t build one in — your output is your
+            paycheck, and it scales as far as your pipeline does.
+          </p>
+          <p>
+            This isn&apos;t a &quot;grind for years to get promoted into real money&quot;
+            role. It&apos;s a &quot;get good at this fast and the upside shows up
+            immediately&quot; role.
           </p>
         </Section>
 
-        <Section title="What you'll do">
+        <Section title="Why sharp people are choosing XL AI over a normal sales job">
+          <ul className="list-disc space-y-3 pl-5">
+            {reasons.map((r) => (
+              <li key={r.lead}>
+                <strong className="font-semibold text-foreground">{r.lead}</strong>{" "}
+                {r.body}
+              </li>
+            ))}
+          </ul>
+        </Section>
+
+        <Section title="What you'll actually be doing">
           <ul className="list-disc space-y-2 pl-5">
             <li>
-              Run outbound prospecting from lead lists and ICPs we provide — email,
-              LinkedIn, and text/WhatsApp where appropriate.
+              Running outbound across email, LinkedIn, and text/WhatsApp using lead lists
+              and ICPs we hand you
             </li>
-            <li>Write and send outreach using our messaging frameworks and AI tooling.</li>
-            <li>Qualify responses and book intro and demo calls with real buyers.</li>
-            <li>Hand off interested prospects to the client team or to us for closing.</li>
+            <li>Writing and sending outreach with our proven messaging frameworks and AI tools</li>
+            <li>Qualifying responses and booking real demo calls with real buyers</li>
+            <li>Handing off hot prospects to the client or closing team</li>
             <li>
-              Join regular team sessions where we review messaging, test angles, and share
-              what&apos;s converting.
+              Sitting in on team sessions where we compare notes on what&apos;s converting
+              right now
             </li>
           </ul>
         </Section>
 
-        <Section title="Compensation">
-          <p>
-            <strong className="font-semibold text-foreground">
-              You earn 4% of the total value of every deal that closes from a meeting you
-              booked.
-            </strong>{" "}
-            There is no base salary and no cap.
-          </p>
-
-          <div className="overflow-hidden rounded-xl border border-border">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border bg-muted/50">
-                  <th className="px-4 py-3 text-left text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                    Deal size
-                  </th>
-                  <th className="px-4 py-3 text-right text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                    Your commission
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {commissionRows.map((r) => (
-                  <tr key={r.deal} className="border-b border-border last:border-0">
-                    <td className="px-4 py-3 tabular-nums">{r.deal}</td>
-                    <td className="px-4 py-3 text-right font-semibold tabular-nums text-primary">
-                      {r.commission}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <p>
-            Your monthly income is a function of two things: how many qualified meetings
-            you book, and how large the deals are. Three $25,000 deals in a month is $3,000
-            to you.
-          </p>
-
+        <Section title="Let's be straight about timing">
           <div className="rounded-xl border border-primary/25 bg-primary/5 p-5">
-            <p className="font-semibold text-foreground">
-              On payment timing — we&apos;d rather you hear this now than in month three.
+            <p>
+              This is commission-only, and we&apos;d rather tell you the truth upfront than
+              have you find out in month three: you&apos;ll typically see your first payout{" "}
+              <strong className="font-semibold text-foreground">
+                30–90 days after you book a meeting
+              </strong>
+              , once the deal closes and the client pays. Commission lands about 15 days
+              after that.
             </p>
             <p className="mt-2 mb-0">
-              Commission is paid roughly 15 days after our client receives their first
-              payment from the customer. Between the demo you book, the client&apos;s sales
-              cycle, and their billing terms, expect{" "}
-              <strong className="font-semibold text-foreground">
-                30–90 days from booked call to your first payout
-              </strong>
-              . This role rewards people who can build a pipeline before they need the
-              income from it.
+              That&apos;s the trade-off of a role with no ceiling — and it means the reps who
+              do best here are the ones who start building pipeline in week one, before they
+              need the income from it.
             </p>
           </div>
         </Section>
 
-        <Section title="What we provide">
+        <Section title="Is this you?">
           <ul className="list-disc space-y-2 pl-5">
             <li>
-              Vetted lead lists and defined ideal customer profiles — you are not sourcing
-              from scratch.
+              You can write a cold email that a busy executive actually replies to — that
+              instinct matters more here than a resume full of job titles
             </li>
             <li>
-              Outreach frameworks, message templates, and AI tooling that our team has
-              already tested.
-            </li>
-            <li>A single assigned account so you can learn one buyer deeply.</li>
-            <li>
-              Transparent attribution — handoffs happen in tracked email threads and are
-              logged in our systems, so credit is never in question.
+              You&apos;re the kind of self-motivated person who treats &quot;no one&apos;s
+              checking on you&quot; as freedom, not a lack of structure
             </li>
             <li>
-              A written agreement covering commission structure, payment timing, and lead
-              ownership before you start.
-            </li>
-          </ul>
-        </Section>
-
-        <Section title="Who we're looking for">
-          <ul className="list-disc space-y-2 pl-5">
-            <li>
-              You can write a cold email that a busy executive actually answers. This
-              matters more than years of experience.
+              You want to build a real, transferable skill — persuasive writing and outbound
+              sales — not just clock hours
             </li>
             <li>
-              You&apos;re self-directed. Nobody will assign you a daily activity quota —
-              the results are the quota.
+              You can take rejection at volume without it getting in your head, and keep
+              sending after a slow week
             </li>
             <li>
-              You&apos;re comfortable with rejection at volume and can keep sending after a
-              quiet week.
+              You have solid internet, a professional LinkedIn presence, and can overlap
+              with U.S. business hours
             </li>
             <li>
-              You have reliable internet, a professional LinkedIn presence, and overlap
-              with U.S. business hours.
+              Bonus points for SDR, recruiting, fundraising, or agency outreach experience —
+              but it&apos;s genuinely not required. What we can&apos;t teach is hustle and a
+              way with words; the rest, we&apos;ll show you.
             </li>
-            <li>
-              Prior SDR, recruiting, fundraising, or agency outreach experience is a plus,
-              not a requirement.
-            </li>
-          </ul>
-        </Section>
-
-        <Section title="This is probably not for you if">
-          <ul className="list-disc space-y-2 pl-5">
-            <li>You need predictable income in the next 60 days.</li>
-            <li>You want a manager structuring your day.</li>
-            <li>You&apos;re looking for inbound or warm leads — this role is outbound.</li>
           </ul>
           <p>
-            We&apos;d rather you self-select out now than three weeks in. Commission-only
-            is a real trade: you take on the income risk, and in exchange nobody caps what
-            you make or tells you when to log on.
+            This probably isn&apos;t the right fit if you need guaranteed income in the next
+            two months, want a manager building your day for you, or are only looking for
+            warm/inbound leads. That&apos;s a fair thing to know about yourself — better to
+            find out now than three weeks in.
           </p>
         </Section>
 
-        <Section title="Conditions worth naming upfront">
+        <Section title="One thing to know upfront">
           <p>
-            The prospect lists and ICP data we provide are XL AI property. They can&apos;t
-            be reused to sell other products or for personal use. Full terms are in the
-            written agreement, which you&apos;ll review before committing to anything.
+            The lead lists and ICP data we give you are XL AI property, licensed for this
+            work only — not for reuse on other products or personal ventures. It&apos;s all
+            spelled out plainly in the agreement you&apos;ll review before you commit to
+            anything.
           </p>
         </Section>
 
         <div className="mt-16 border-t border-border pt-10">
           <h2 className="mb-3 text-sm font-bold tracking-widest text-muted-foreground uppercase">
-            How to apply
+            Ready to apply?
           </h2>
+          <p className="mb-3 text-foreground/90">Skip the cover letter. Send us:</p>
+          <ol className="mb-3 list-decimal space-y-1.5 pl-5 text-foreground/90">
+            <li>Your LinkedIn profile</li>
+            <li>
+              A short story about the toughest person you ever landed a meeting with, and how
+              you pulled it off
+            </li>
+          </ol>
           <p className="mb-6 text-foreground/90">
-            Send us your LinkedIn profile and a short note on the most difficult person
-            you&apos;ve ever gotten a meeting with, and how you did it. Skip the cover
-            letter — that story tells us more.
+            That story tells us more than any resume could.
           </p>
           <Button asChild size="lg">
             <a href="mailto:info@xlai.live?subject=SDR%20Application">
@@ -240,7 +238,7 @@ export default function CareersPage() {
           </Button>
           <p className="mt-8 text-sm text-muted-foreground">
             This is an independent contractor position compensated solely by commission.
-            Earnings depend on individual performance and deal volume, and are not
+            Earnings depend on individual performance and deal volume and are not
             guaranteed. XL AI is an equal opportunity organization.
           </p>
         </div>
