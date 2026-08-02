@@ -1,3 +1,5 @@
+import Script from "next/script"
+
 export function Booking() {
   return (
     <section id="book" className="relative overflow-hidden border-t border-border px-4 py-24 text-center">
@@ -25,10 +27,9 @@ export function Booking() {
             data-url="https://calendly.com/xlai-global/discovery"
             style={{ minWidth: 320, height: 700 }}
           />
-          <script
-            type="text/javascript"
+          <Script
             src="https://assets.calendly.com/assets/external/widget.js"
-            async
+            strategy="afterInteractive"
           />
         </div>
 
