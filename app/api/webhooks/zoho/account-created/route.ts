@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { createClientAccount, ClientAlreadyExistsError } from "@/lib/create-client"
+import { createClientAccount, resetClientPassword, ClientAlreadyExistsError } from "@/lib/create-client"
 import { sendClientWelcomeEmail } from "@/lib/email"
 
 // Called by a Zoho CRM workflow rule ("When an Account is created" -> Instant
@@ -31,7 +31,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ created: true })
   } catch (err) {
     if (err instanceof ClientAlreadyExistsError) {
-      return NextResponse.json({ created: false, reason: "already_exists" })
+      // Most likely Zoho retrying after a prior call created the account but
+      // failed to email the credentials — issue a new password and resend
+      // rather than leaving the client without a way to log in.
+      try {
+        const { password } = await resetClientPassword({ email })
+        await sendClientWelcomeEmail({ to: email, name: name || email, password })
+        return NextResponse.json({ created: false, reason: "resent" })
+      } catch (resendErr) {
+        console.error("Failed to resend credentials for existing client", resendErr)
+        return NextResponse.json({ error: "Internal error" }, { status: 500 })
+      }
     }
     console.error("Failed to create client account from Zoho webhook", err)
     return NextResponse.json({ error: "Internal error" }, { status: 500 })

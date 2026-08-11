@@ -39,3 +39,30 @@ export async function createClientAccount({
 
   return { user, password }
 }
+
+export class ClientNotFoundError extends Error {}
+
+// Issues a new password for an existing client account. Used when a webhook
+// caller retries after a prior attempt created the account but failed to
+// deliver the credentials email, so the client isn't left without a way in.
+export async function resetClientPassword({
+  email,
+  password: providedPassword,
+}: {
+  email: string
+  password?: string
+}) {
+  const ctx = await auth.$context
+  const normalizedEmail = email.toLowerCase()
+
+  const existing = await ctx.internalAdapter.findUserByEmail(normalizedEmail)
+  if (!existing?.user) {
+    throw new ClientNotFoundError(`No user with email ${normalizedEmail} exists.`)
+  }
+
+  const password = providedPassword || randomBytes(9).toString("base64url")
+  const hash = await ctx.password.hash(password)
+  await ctx.internalAdapter.updatePassword(existing.user.id, hash)
+
+  return { user: existing.user, password }
+}
