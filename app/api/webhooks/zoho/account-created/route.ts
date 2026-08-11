@@ -17,11 +17,31 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  const body = await request.json().catch(() => null)
-  const name = typeof body?.name === "string" ? body.name.trim() : ""
-  const email = typeof body?.email === "string" ? body.email.trim() : ""
+  // Zoho's Workflow Rule "Webhook" action sends its configured parameters as
+  // an application/x-www-form-urlencoded body, not JSON — accept either.
+  const contentType = request.headers.get("content-type") || ""
+  const rawBody = await request.text()
+  let name = ""
+  let email = ""
+
+  if (contentType.includes("application/json")) {
+    const body = (() => {
+      try {
+        return JSON.parse(rawBody)
+      } catch {
+        return null
+      }
+    })()
+    name = typeof body?.name === "string" ? body.name.trim() : ""
+    email = typeof body?.email === "string" ? body.email.trim() : ""
+  } else {
+    const params = new URLSearchParams(rawBody)
+    name = (params.get("name") || "").trim()
+    email = (params.get("email") || "").trim()
+  }
 
   if (!email) {
+    console.error("Zoho webhook missing email", { contentType, rawBody: rawBody.slice(0, 500) })
     return NextResponse.json({ error: "Missing email" }, { status: 400 })
   }
 
