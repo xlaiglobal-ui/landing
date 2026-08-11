@@ -1,12 +1,13 @@
 // Creates a client account for the dashboard. Client accounts are not
-// self-serve (see disableSignUp in lib/auth.ts), so this is the only way
-// to provision one.
+// self-serve (see disableSignUp in lib/auth.ts) — this is the manual path,
+// alongside the automatic one at app/api/webhooks/zoho/account-created.
 //
 // Usage: pnpm create-client "Jane Doe" jane@client.com [password]
-// If no password is given, a random one is generated and printed once.
+// If no password is given, a random one is generated. The welcome email
+// (with login link + password) is sent via Resend either way.
 
-import { randomBytes } from "node:crypto"
-import { auth } from "../lib/auth"
+import { createClientAccount, ClientAlreadyExistsError } from "../lib/create-client"
+import { sendClientWelcomeEmail } from "../lib/email"
 
 async function main() {
   const [name, email, providedPassword] = process.argv.slice(2)
@@ -16,37 +17,23 @@ async function main() {
     process.exit(1)
   }
 
-  const password = providedPassword || randomBytes(9).toString("base64url")
+  try {
+    const { password } = await createClientAccount({ name, email, password: providedPassword })
+    console.log(`Created client account for ${email.toLowerCase()}`)
 
-  const ctx = await auth.$context
-  const normalizedEmail = email.toLowerCase()
-
-  const existing = await ctx.internalAdapter.findUserByEmail(normalizedEmail)
-  if (existing?.user) {
-    console.error(`A user with email ${normalizedEmail} already exists.`)
-    process.exit(1)
-  }
-
-  const hash = await ctx.password.hash(password)
-
-  const user = await ctx.internalAdapter.createUser({
-    name,
-    email: normalizedEmail,
-    image: null,
-    emailVerified: true,
-  })
-
-  await ctx.internalAdapter.linkAccount({
-    userId: user.id,
-    providerId: "credential",
-    accountId: user.id,
-    password: hash,
-  })
-
-  console.log(`Created client account for ${normalizedEmail}`)
-  if (!providedPassword) {
-    console.log(`Temporary password: ${password}`)
-    console.log("Share this with the client securely — it will not be shown again.")
+    try {
+      await sendClientWelcomeEmail({ to: email, name, password })
+      console.log("Welcome email sent.")
+    } catch (err) {
+      console.error("Account created, but the welcome email failed to send:", err)
+      console.log(`Temporary password: ${password}`)
+    }
+  } catch (err) {
+    if (err instanceof ClientAlreadyExistsError) {
+      console.error(err.message)
+      process.exit(1)
+    }
+    throw err
   }
 
   process.exit(0)
