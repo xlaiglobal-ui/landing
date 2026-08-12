@@ -34,10 +34,17 @@ export async function POST(request: NextRequest) {
     })()
     name = typeof body?.name === "string" ? body.name.trim() : ""
     email = typeof body?.email === "string" ? body.email.trim() : ""
-  } else {
+  } else if (rawBody) {
     const params = new URLSearchParams(rawBody)
     name = (params.get("name") || "").trim()
     email = (params.get("email") || "").trim()
+  }
+
+  // Fall back to URL query params in case the webhook action sends its
+  // parameters on the URL instead of in the body.
+  if (!email) {
+    name = name || (request.nextUrl.searchParams.get("name") || "").trim()
+    email = email || (request.nextUrl.searchParams.get("email") || "").trim()
   }
 
   if (!email) {
