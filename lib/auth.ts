@@ -26,6 +26,10 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, { client }),
+  // BETTER_AUTH_URL only trusts the apex domain; www.xlai.live is a
+  // separate live alias for the same deployment with no redirect between
+  // them, so it needs to be trusted explicitly too.
+  trustedOrigins: ["https://www.xlai.live"],
   emailAndPassword: {
     enabled: true,
     // Client accounts are created by an admin via `pnpm create-client`,
