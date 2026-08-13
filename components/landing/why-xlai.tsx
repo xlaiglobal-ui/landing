@@ -1,33 +1,63 @@
-const cards = [
+const features = [
   {
-    icon: "⚡",
-    title: "Zero Financial Risk",
-    body: "No retainer, no setup fee, no monthly minimum. You pay commission only after money hits your bank account.",
+    icon: "🎯",
+    title: "Prospecting",
+    body: "Find the companies and people most likely to buy.",
   },
   {
-    icon: "🧠",
-    title: "SaaS Specialists",
-    body: "We focus exclusively on B2B SaaS. We understand your buyers, your objections, your sales cycle — and we speak their language.",
-  },
-  {
-    icon: "🔥",
-    title: "Motivated to Close",
-    body: "A salaried rep has no urgency. We do. Every day we don't close is a day we don't earn. That's alignment you can't buy with a retainer.",
+    icon: "🔍",
+    title: "Research",
+    body: "Understand who they are, what they do, and why they might buy.",
   },
   {
     icon: "📊",
-    title: "Full Transparency",
-    body: "Weekly pipeline reports, live CRM access, and regular check-ins. You always know what we're working and where every deal stands.",
+    title: "Enrichment",
+    body: "Build complete prospect profiles and contact data.",
+  },
+  {
+    icon: "⭐",
+    title: "ICP Scoring",
+    body: "Prioritize the prospects that fit your ideal customer profile.",
+  },
+  {
+    icon: "✍️",
+    title: "Personalization",
+    body: "Create relevant messaging based on each prospect.",
+  },
+  {
+    icon: "📨",
+    title: "Multichannel Outreach",
+    body: "Reach prospects through the channels that make sense.",
+  },
+  {
+    icon: "🔄",
+    title: "Follow-Up",
+    body: "Stay persistent without manually managing sequences.",
+  },
+  {
+    icon: "💬",
+    title: "AI Conversations",
+    body: "Handle replies and move prospects through the early sales process.",
+  },
+  {
+    icon: "✅",
+    title: "Qualification",
+    body: "Identify real opportunities before they reach you.",
+  },
+  {
+    icon: "📅",
+    title: "Meeting Booking",
+    body: "Turn qualified conversations into meetings.",
+  },
+  {
+    icon: "📁",
+    title: "CRM",
+    body: "Keep your sales data and activity organized.",
   },
   {
     icon: "🚀",
-    title: "Fast to Start",
-    body: "No 6-month onboarding. We learn your product in week one and have live outreach running by week two.",
-  },
-  {
-    icon: "🌐",
-    title: "Your Network + Ours",
-    body: "We bring our existing relationships in the SaaS ecosystem. Warm intros close faster — and we have them.",
+    title: "Learning",
+    body: "Continuously improve based on real sales outcomes.",
   },
 ]
 
@@ -35,29 +65,26 @@ export function WhyXlai() {
   return (
     <section id="why" className="mx-auto max-w-6xl px-4 pb-24 md:px-8">
       <p className="mb-2 text-xs font-bold uppercase tracking-widest text-primary">
-        Why XLAI
+        Features
       </p>
       <h2 className="mb-3 text-4xl font-black tracking-tight text-foreground">
-        Built Differently.
-        <br />
-        Motivated Differently.
+        A Complete AI Sales Function
       </h2>
       <p className="mb-12 max-w-lg text-muted-foreground">
-        Most agencies charge you to try. We only get paid when we deliver —
-        which means our interests are identical to yours.
+        Everything you need to run a world-class sales development operation.
       </p>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {cards.map((c) => (
+        {features.map((f) => (
           <div
-            key={c.title}
+            key={f.title}
             className="group rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/40"
           >
             <div className="mb-4 flex size-10 items-center justify-center rounded-lg bg-primary/10 text-xl">
-              {c.icon}
+              {f.icon}
             </div>
-            <h3 className="mb-2 font-bold text-foreground">{c.title}</h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">{c.body}</p>
+            <h3 className="mb-2 font-bold text-foreground">{f.title}</h3>
+            <p className="text-sm leading-relaxed text-muted-foreground">{f.body}</p>
           </div>
         ))}
       </div>

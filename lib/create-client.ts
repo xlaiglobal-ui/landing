@@ -7,10 +7,12 @@ export async function createClientAccount({
   name,
   email,
   password: providedPassword,
+  tenantId,
 }: {
   name: string
   email: string
   password?: string
+  tenantId?: string
 }) {
   const ctx = await auth.$context
   const normalizedEmail = email.toLowerCase()
@@ -28,6 +30,7 @@ export async function createClientAccount({
     email: normalizedEmail,
     image: null,
     emailVerified: true,
+    ...(tenantId ? { tenantId } : {}),
   })
 
   await ctx.internalAdapter.linkAccount({

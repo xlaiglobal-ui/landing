@@ -2,23 +2,33 @@
 // self-serve (see disableSignUp in lib/auth.ts) — this is the manual path,
 // alongside the automatic one at app/api/webhooks/zoho/account-created.
 //
-// Usage: pnpm create-client "Jane Doe" jane@client.com [password]
-// If no password is given, a random one is generated. The welcome email
-// (with login link + password) is sent via Resend either way.
+// Usage: pnpm create-client "Jane Doe" jane@client.com [password] [tenantId]
+// If no password is given, a random one is generated. tenantId is the Zoho
+// Account record ID (Accounts.id) that joins this client to their data in the
+// AI SDR agent backend — omit it only for accounts that don't need the
+// Reports page yet. The welcome email (with login link + password) is sent
+// via Resend either way.
 
 import { createClientAccount, ClientAlreadyExistsError } from "../lib/create-client"
 import { sendClientWelcomeEmail } from "../lib/email"
 
 async function main() {
-  const [name, email, providedPassword] = process.argv.slice(2)
+  const [name, email, providedPassword, tenantId] = process.argv.slice(2)
 
   if (!name || !email) {
-    console.error('Usage: pnpm create-client "Jane Doe" jane@client.com [password]')
+    console.error(
+      'Usage: pnpm create-client "Jane Doe" jane@client.com [password] [tenantId]',
+    )
     process.exit(1)
   }
 
   try {
-    const { password } = await createClientAccount({ name, email, password: providedPassword })
+    const { password } = await createClientAccount({
+      name,
+      email,
+      password: providedPassword,
+      tenantId,
+    })
     console.log(`Created client account for ${email.toLowerCase()}`)
 
     try {

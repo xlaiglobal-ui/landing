@@ -31,6 +31,12 @@ export default async function DashboardLayout({
               Dashboard
             </Link>
             <Link
+              href="/dashboard/reports"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Reports
+            </Link>
+            <Link
               href="/dashboard/settings"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >

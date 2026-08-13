@@ -7,8 +7,13 @@ import { sendClientWelcomeEmail } from "@/lib/email"
 // webhook in Zoho as:
 //   URL:    https://<your-domain>/api/webhooks/zoho/account-created?secret=<ZOHO_WEBHOOK_SECRET>
 //   Method: POST
-//   Body params: name  -> ${Accounts.Account_Name}
-//                email -> ${Accounts.Client_Email}
+//   Body params: name      -> ${Accounts.Account_Name}
+//                email     -> ${Accounts.Client_Email}
+//                tenant_id -> ${Accounts.id}
+// tenant_id is Zoho's own Account record ID — used verbatim as the join key
+// to the AI SDR agent backend's per-tenant data (see lib/create-client.ts and
+// app/api/reports/daily/route.ts), since it's already stable and 1:1 with the
+// client with no separate mapping table needed.
 export async function POST(request: NextRequest) {
   const secret =
     request.headers.get("x-webhook-secret") || request.nextUrl.searchParams.get("secret")
@@ -23,6 +28,7 @@ export async function POST(request: NextRequest) {
   const rawBody = await request.text()
   let name = ""
   let email = ""
+  let tenantId = ""
 
   if (contentType.includes("application/json")) {
     const body = (() => {
@@ -34,10 +40,12 @@ export async function POST(request: NextRequest) {
     })()
     name = typeof body?.name === "string" ? body.name.trim() : ""
     email = typeof body?.email === "string" ? body.email.trim() : ""
+    tenantId = typeof body?.tenant_id === "string" ? body.tenant_id.trim() : ""
   } else if (rawBody) {
     const params = new URLSearchParams(rawBody)
     name = (params.get("name") || "").trim()
     email = (params.get("email") || "").trim()
+    tenantId = (params.get("tenant_id") || "").trim()
   }
 
   // Fall back to URL query params in case the webhook action sends its
@@ -45,6 +53,7 @@ export async function POST(request: NextRequest) {
   if (!email) {
     name = name || (request.nextUrl.searchParams.get("name") || "").trim()
     email = email || (request.nextUrl.searchParams.get("email") || "").trim()
+    tenantId = tenantId || (request.nextUrl.searchParams.get("tenant_id") || "").trim()
   }
 
   if (!email) {
@@ -52,8 +61,19 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Missing email" }, { status: 400 })
   }
 
+  if (!tenantId) {
+    // Not fatal: the account still gets created so the client can log in, but
+    // without a tenantId the Reports page has no data to show them until this
+    // gets backfilled (see B1 in the plan).
+    console.error("Zoho webhook missing tenant_id (Accounts.id)", { email })
+  }
+
   try {
-    const { password } = await createClientAccount({ name: name || email, email })
+    const { password } = await createClientAccount({
+      name: name || email,
+      email,
+      tenantId: tenantId || undefined,
+    })
     await sendClientWelcomeEmail({ to: email, name: name || email, password })
     return NextResponse.json({ created: true })
   } catch (err) {

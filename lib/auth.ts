@@ -37,4 +37,17 @@ export const auth = betterAuth({
     disableSignUp: true,
   },
   socialProviders,
+  user: {
+    additionalFields: {
+      tenantId: {
+        type: "string",
+        required: false,
+        input: false,
+        // Joins this user to the AI SDR agent backend's per-tenant data (see
+        // lib/create-client.ts). Set at account-creation time from the Zoho
+        // Account record ID (`${Accounts.id}`) — never user-editable, since a
+        // wrong value would show one client another client's report data.
+      },
+    },
+  },
 })

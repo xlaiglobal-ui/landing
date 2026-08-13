@@ -1,4 +1,5 @@
-import Script from "next/script"
+import { Button } from "@/components/ui/button"
+import { ChevronRight } from "lucide-react"
 
 export function Booking() {
   return (
@@ -8,41 +9,37 @@ export function Booking() {
         <div className="h-[400px] w-[600px] rounded-full bg-primary/8 blur-[100px]" />
       </div>
 
-      <div className="relative mx-auto max-w-6xl">
-        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-primary">
-          Get Started
-        </p>
-        <h2 className="mx-auto mb-3 max-w-xl text-balance text-4xl font-black tracking-tight text-foreground">
-          Ready to Add a{" "}
-          <span className="text-primary">Commission-Only Sales Team?</span>
+      <div className="relative mx-auto max-w-2xl">
+        <h2 className="mb-4 text-5xl font-black tracking-tight text-foreground">
+          Your Sales Team Is Already Here.
         </h2>
-        <p className="mx-auto mb-12 max-w-md text-muted-foreground">
-          15 minutes. No pitch deck. We&apos;ll tell you honestly if we&apos;re
-          a fit — and what we&apos;d do in your market.
+
+        <p className="mb-3 text-2xl font-bold text-primary">
+          Stop Hiring SDRs.
         </p>
 
-        <div className="mx-auto max-w-4xl overflow-hidden rounded-xl border border-border bg-white">
-          <div
-            className="calendly-inline-widget"
-            data-url="https://calendly.com/xlai-global/discovery"
-            style={{ minWidth: 320, height: 700 }}
-          />
-          <Script
-            src="https://assets.calendly.com/assets/external/widget.js"
-            strategy="afterInteractive"
-          />
+        <p className="mb-8 text-2xl font-bold text-foreground">
+          Start Your AI Sales Team.
+        </p>
+
+        <div className="mb-8 text-lg font-semibold text-muted-foreground">
+          <p>Your ICP · Your strategy · Your guardrails · Our AI</p>
         </div>
 
-        <p className="mt-4 text-xs text-muted-foreground">
-          Having trouble?{" "}
-          <a
-            href="https://calendly.com/xlai-global/discovery"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary underline-offset-4 hover:underline"
-          >
-            Open booking page directly →
-          </a>
+        <div className="mb-8 flex flex-col items-center gap-3">
+          <Button asChild size="lg" className="w-full sm:w-auto">
+            <a href="https://app.xlai.live/signup">
+              Build My AI Sales Team — Free for 30 Days
+              <ChevronRight className="size-4" />
+            </a>
+          </Button>
+          <p className="text-xs text-muted-foreground">
+            No credit card required · Cancel anytime
+          </p>
+        </div>
+
+        <p className="text-muted-foreground">
+          You set the rules. AI does the work.
         </p>
       </div>
     </section>

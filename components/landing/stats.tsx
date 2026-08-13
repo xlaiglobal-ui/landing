@@ -1,8 +1,8 @@
 const stats = [
-  { value: "$0", label: "Upfront cost to get started" },
-  { value: "10–20%", label: "Commission on ACV closed" },
-  { value: "30–90d", label: "Typical deal cycle we target" },
-  { value: "100%", label: "Aligned incentives — we win when you win" },
+  { value: "30", label: "Days free to test" },
+  { value: "∞", label: "Prospects your AI can reach" },
+  { value: "24/7", label: "AI outreach & follow-up" },
+  { value: "$0", label: "Setup cost" },
 ]
 
 export function Stats() {

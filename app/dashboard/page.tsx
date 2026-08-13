@@ -1,5 +1,6 @@
 import { headers } from "next/headers"
 import { auth } from "@/lib/auth"
+import { AIChatIntake } from "@/components/dashboard/ai-chat-intake"
 
 export default async function DashboardPage() {
   const session = await auth.api.getSession({ headers: await headers() })
@@ -12,17 +13,11 @@ export default async function DashboardPage() {
           Welcome{firstName ? `, ${firstName}` : ""}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          This is your XLAI client dashboard.
+          Let's configure your AI sales team. Answer a few questions and we'll get you set up.
         </p>
       </div>
 
-      <div className="rounded-3xl border border-border bg-card p-6">
-        <p className="text-sm text-muted-foreground">
-          We&apos;re setting things up here. Reporting on your pipeline and results will
-          show up on this page soon — in the meantime, reach out to your XLAI contact
-          for updates.
-        </p>
-      </div>
+      <AIChatIntake />
     </div>
   )
 }
