@@ -28,7 +28,16 @@ const TILES: {
   { key: "meetings_booked", label: "Meetings booked", icon: CalendarCheck },
 ]
 
-export function DailyReport() {
+// The four outcome metrics — what a client cares about at a glance from the
+// dashboard home. The full six-tile funnel lives on the Reports page.
+const COMPACT_KEYS: (typeof TILES)[number]["key"][] = [
+  "prospects_contacted",
+  "replies_received",
+  "qualified_opportunities",
+  "meetings_booked",
+]
+
+export function DailyReport({ variant = "full" }: { variant?: "full" | "compact" }) {
   const [summary, setSummary] = useState<DailySummary | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
@@ -77,14 +86,24 @@ export function DailyReport() {
     )
   }
 
+  const tiles = variant === "compact" ? TILES.filter((t) => COMPACT_KEYS.includes(t.key)) : TILES
+
   return (
     <div>
-      <p className="mb-4 text-sm text-muted-foreground">
-        What your AI sales team did on {summary.date}
-      </p>
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-        {TILES.map(({ key, label, icon: Icon }) => (
-          <Card key={key}>
+      {variant === "full" && (
+        <p className="mb-4 text-sm text-muted-foreground">
+          What your AI sales team did on {summary.date}
+        </p>
+      )}
+      <div
+        className={
+          variant === "compact"
+            ? "grid grid-cols-2 gap-4 md:grid-cols-4"
+            : "grid grid-cols-2 gap-4 md:grid-cols-3"
+        }
+      >
+        {tiles.map(({ key, label, icon: Icon }) => (
+          <Card key={key} size={variant === "compact" ? "sm" : "default"}>
             <CardHeader>
               <Icon className="h-5 w-5 text-primary" />
               <CardTitle className="mt-2 text-3xl font-semibold tabular-nums">

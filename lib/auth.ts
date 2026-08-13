@@ -48,6 +48,14 @@ export const auth = betterAuth({
         // Account record ID (`${Accounts.id}`) — never user-editable, since a
         // wrong value would show one client another client's report data.
       },
+      profileCompletedAt: {
+        type: "date",
+        required: false,
+        input: false,
+        // Set by app/api/onboarding/submit once the company profile has been
+        // synced to Zoho at least once — lets the dashboard show a completion
+        // state without a live Zoho round-trip on every page load.
+      },
     },
   },
 })

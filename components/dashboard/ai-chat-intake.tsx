@@ -122,6 +122,8 @@ export function AIChatIntake() {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
   const [aiHelpQuestion, setAiHelpQuestion] = useState<Question | null>(null)
   const [aiHelpMessages, setAiHelpMessages] = useState<Message[]>([])
+  const [submitState, setSubmitState] = useState<"idle" | "submitting" | "done" | "error">("idle")
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const aiHelpEndRef = useRef<HTMLDivElement>(null)
 
@@ -219,6 +221,32 @@ export function AIChatIntake() {
     setIsLoading(false)
   }
 
+  const submitProfile = async () => {
+    setSubmitState("submitting")
+    setSubmitError(null)
+
+    try {
+      const response = await fetch("/api/onboarding/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          answers: extractedData,
+          submittedVia: mode === "chat" ? "chat" : "form",
+        }),
+      })
+
+      if (!response.ok) {
+        const body = await response.json().catch(() => null)
+        throw new Error(body?.error || "Something went wrong saving your profile.")
+      }
+
+      setSubmitState("done")
+    } catch (err) {
+      setSubmitState("error")
+      setSubmitError(err instanceof Error ? err.message : "Something went wrong saving your profile.")
+    }
+  }
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault()
@@ -244,6 +272,47 @@ export function AIChatIntake() {
   }
 
   const completionPercentage = Math.round((currentQuestionIndex / allQuestions.length) * 100)
+
+  const renderConfirmSection = (onStartOver: () => void) => {
+    if (submitState === "done") {
+      return (
+        <div className="rounded-lg border border-primary/30 bg-primary/5 p-4 text-center">
+          <p className="font-semibold text-foreground">Profile saved</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            This is now on file with your XLAI team and will shape how your AI sales team targets and reaches out to prospects.
+          </p>
+        </div>
+      )
+    }
+
+    return (
+      <div className="space-y-2">
+        {submitState === "error" && <p className="text-sm text-destructive">{submitError}</p>}
+        <div className="flex gap-3">
+          <Button
+            variant="outline"
+            onClick={onStartOver}
+            className="flex-1"
+            disabled={submitState === "submitting"}
+          >
+            Start Over
+          </Button>
+          <Button onClick={submitProfile} className="flex-1" disabled={submitState === "submitting"}>
+            {submitState === "submitting" ? (
+              <span className="flex items-center gap-2">
+                <Loader2 className="size-4 animate-spin" />
+                Saving...
+              </span>
+            ) : submitState === "error" ? (
+              "Try Again"
+            ) : (
+              "Confirm & Continue"
+            )}
+          </Button>
+        </div>
+      </div>
+    )
+  }
 
   // Mode choice screen
   if (mode === "choice") {
@@ -432,26 +501,12 @@ export function AIChatIntake() {
             </div>
           </div>
 
-          <div className="flex gap-3">
-            <Button
-              variant="outline"
-              onClick={() => {
-                setMode("choice")
-                setExtractedData({})
-              }}
-              className="flex-1"
-            >
-              Start Over
-            </Button>
-            <Button
-              onClick={() => {
-                console.log("Submitting:", extractedData)
-              }}
-              className="flex-1"
-            >
-              Confirm & Continue
-            </Button>
-          </div>
+          {renderConfirmSection(() => {
+            setMode("choice")
+            setExtractedData({})
+            setSubmitState("idle")
+            setSubmitError(null)
+          })}
         </div>
       </div>
     )
@@ -540,28 +595,16 @@ export function AIChatIntake() {
               )
             })}
           </div>
-          <div className="mt-4 flex gap-3">
-            <Button
-              variant="outline"
-              onClick={() => {
-                setMessages([messages[0]])
-                setCurrentQuestionIndex(0)
-                setExtractedData({})
-                setShowSummary(false)
-                setSelectedOptions([])
-              }}
-              className="flex-1"
-            >
-              Start Over
-            </Button>
-            <Button
-              onClick={() => {
-                console.log("Submitting:", extractedData)
-              }}
-              className="flex-1"
-            >
-              Confirm & Continue
-            </Button>
+          <div className="mt-4">
+            {renderConfirmSection(() => {
+              setMessages([messages[0]])
+              setCurrentQuestionIndex(0)
+              setExtractedData({})
+              setShowSummary(false)
+              setSelectedOptions([])
+              setSubmitState("idle")
+              setSubmitError(null)
+            })}
           </div>
         </div>
       )}
