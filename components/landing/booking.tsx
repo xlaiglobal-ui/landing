@@ -1,3 +1,4 @@
+import Script from "next/script"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
 
@@ -41,6 +42,15 @@ export function Booking() {
         <p className="text-muted-foreground">
           You set the rules. AI does the work.
         </p>
+      </div>
+
+      <div className="relative mx-auto mt-16 max-w-3xl">
+        <div
+          className="calendly-inline-widget rounded-2xl border border-border"
+          data-url="https://calendly.com/xlai-global/discovery?hide_gdpr_banner=1"
+          style={{ minWidth: "320px", height: "700px" }}
+        />
+        <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="lazyOnload" />
       </div>
     </section>
   )
