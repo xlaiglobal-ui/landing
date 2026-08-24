@@ -3,7 +3,7 @@ import { readFileSync } from "fs"
 import { join } from "path"
 
 export const runtime = "nodejs"
-export const alt = "XLAI — Commission-Only B2B SaaS Sales"
+export const alt = "XLAI — Your Sales Team. Without the Hiring Headache."
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
@@ -98,7 +98,7 @@ export default async function OgImage() {
                 textTransform: "uppercase",
               }}
             >
-              Now Accepting SaaS Clients
+              Onboarding New Accounts
             </span>
           </div>
         </div>
@@ -115,7 +115,7 @@ export default async function OgImage() {
                 lineHeight: 1.05,
               }}
             >
-              We Close Your Deals.
+              Booked Calls &amp; Appointments
             </span>
             <span
               style={{
@@ -126,7 +126,7 @@ export default async function OgImage() {
                 lineHeight: 1.05,
               }}
             >
-              You Pay When We Win.
+              — Done For You.
             </span>
           </div>
 
@@ -141,8 +141,8 @@ export default async function OgImage() {
               maxWidth: 680,
             }}
           >
-            Commission-only B2B sales agency for SaaS companies that need more
-            closed revenue — not more headcount, not more risk.
+            AI-powered outbound and real human sales reps — built and run for
+            you, so qualified prospects land straight on your calendar.
           </p>
         </div>
 
@@ -161,9 +161,9 @@ export default async function OgImage() {
           {/* Stats */}
           <div style={{ display: "flex", gap: 40 }}>
             {[
-              { value: "$0", label: "Upfront" },
-              { value: "10–20%", label: "Commission" },
-              { value: "30–90d", label: "Deal cycle" },
+              { value: "AI +", label: "Human Reps" },
+              { value: "Flat Fee", label: "Monthly" },
+              { value: "Cancel", label: "Anytime" },
             ].map((s) => (
               <div key={s.label} style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 <span style={{ fontSize: 22, fontWeight: 900, color: "#E8151B", letterSpacing: "-0.02em" }}>

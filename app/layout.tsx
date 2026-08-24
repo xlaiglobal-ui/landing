@@ -10,13 +10,13 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 const fontMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" })
 
 export const metadata: Metadata = {
-  title: "XLAI — Commission-Only B2B SaaS Sales",
+  title: "XLAI — Your Sales Team. Without the Hiring Headache.",
   description:
-    "XLAI is a commission-only B2B sales agency for SaaS companies. We close your deals — you pay only when we win.",
+    "XLAI builds and runs outbound sales teams that put qualified prospects on your calendar — AI-powered prospecting and email automation, backed by real human sales representatives.",
   metadataBase: new URL("https://xlai.live"),
   openGraph: {
-    title: "XLAI — Commission-Only B2B SaaS Sales",
-    description: "We close your deals. You pay when we win.",
+    title: "XLAI — Your Sales Team. Without the Hiring Headache.",
+    description: "We build the pipeline. You close the deals.",
     siteName: "XLAI",
     locale: "en_US",
     type: "website",

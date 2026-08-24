@@ -1,44 +1,33 @@
-const criteria = [
-  { label: "Need more sales", body: "" },
-  { label: "Don't want to hire an SDR team yet", body: "" },
-  { label: "Don't want to manage outbound every day", body: "" },
-  { label: "Don't want to stitch together 10 sales tools", body: "" },
-  { label: "Have a clear product and ICP", body: "" },
-  { label: "Want a scalable way to create pipeline", body: "" },
+const segments = [
+  { title: "B2B SaaS", body: "Need more demos? We'll build the outbound engine." },
+  { title: "Technology Companies", body: "Turn your sales development into a predictable pipeline." },
+  { title: "Professional Services", body: "Put qualified decision-makers on your calendar." },
+  { title: "Startups", body: "Get a sales team without immediately building a large internal sales organization." },
+  { title: "Growth Companies", body: "Scale outbound without scaling headcount at the same rate." },
 ]
 
 export function WhoWeWorkWith() {
   return (
     <section id="fit" className="border-y border-border bg-card">
-      <div className="mx-auto max-w-3xl px-4 py-24 md:px-8">
-        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-primary">
-          Built For
-        </p>
-
+      <div className="mx-auto max-w-6xl px-4 py-24 md:px-8">
+        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-primary">Who We Work With</p>
         <h2 className="mb-4 text-4xl font-black tracking-tight text-foreground">
-          Founders Who Need Pipeline.
+          Built for Companies That Need More Customers.
         </h2>
-        <p className="mb-8 text-muted-foreground">
-          XLAI is built for founders who:
+        <p className="mb-12 max-w-2xl text-muted-foreground">
+          XLAI is designed for businesses where one new customer can justify the cost of an entire sales campaign.
         </p>
-        <ul className="flex flex-col gap-4 mb-12">
-          {criteria.map((c) => (
-            <li key={c.label} className="flex items-start gap-3 text-sm">
-              <span className="mt-1 size-1.5 shrink-0 rounded-full bg-primary" />
-              <span className="text-muted-foreground">
-                <span className="font-semibold text-foreground">{c.label}</span>
-              </span>
-            </li>
-          ))}
-        </ul>
 
-        <div className="rounded-xl border border-primary/30 bg-primary/5 p-8 text-center">
-          <p className="text-lg font-semibold text-foreground">
-            Give us your ICP.
-          </p>
-          <p className="mt-2 text-sm text-muted-foreground">
-            We'll build the machine.
-          </p>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {segments.map((s) => (
+            <div
+              key={s.title}
+              className="rounded-xl border border-border bg-background p-6 transition-colors hover:border-primary/40"
+            >
+              <h3 className="mb-2 font-bold text-foreground">{s.title}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">{s.body}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

@@ -8,9 +8,10 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 const links = [
+  { href: "#what", label: "What We Do" },
   { href: "#how", label: "How It Works" },
-  { href: "#why", label: "Why XLAI" },
   { href: "#fit", label: "Who We Work With" },
+  { href: "#pricing", label: "Pricing" },
   { href: "/careers", label: "Careers" },
 ]
 
