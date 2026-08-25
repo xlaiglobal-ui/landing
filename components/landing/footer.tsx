@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { Reveal } from "@/components/ui/reveal"
 
 const faqs = [
   {
@@ -41,17 +42,21 @@ export function Footer() {
     <footer className="border-t border-border bg-card">
       {/* FAQ Section */}
       <div className="mx-auto max-w-6xl px-4 py-24 md:px-8">
-        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-primary">FAQ</p>
-        <h2 className="mb-12 text-4xl font-black tracking-tight text-foreground">
-          Frequently Asked Questions
-        </h2>
+        <Reveal>
+          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-primary">FAQ</p>
+          <h2 className="mb-12 text-4xl font-black tracking-tight text-foreground">
+            Frequently Asked Questions
+          </h2>
+        </Reveal>
 
         <div className="grid gap-8 md:grid-cols-2">
-          {faqs.map((faq) => (
-            <div key={faq.question}>
-              <h3 className="mb-2 font-bold text-foreground">{faq.question}</h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">{faq.answer}</p>
-            </div>
+          {faqs.map((faq, i) => (
+            <Reveal key={faq.question} delay={(i % 2) * 80}>
+              <div>
+                <h3 className="mb-2 font-bold text-foreground">{faq.question}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{faq.answer}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -72,16 +77,16 @@ export function Footer() {
           </div>
 
           <div className="mb-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-            <a href="mailto:info@xlai.live" className="transition-colors hover:text-foreground">
+            <a href="mailto:info@xlai.live" className="link-underline transition-colors hover:text-foreground">
               info@xlai.live
             </a>
-            <Link href="/careers" className="transition-colors hover:text-foreground">
+            <Link href="/careers" className="link-underline transition-colors hover:text-foreground">
               Careers
             </Link>
-            <Link href="/privacy" className="transition-colors hover:text-foreground">
+            <Link href="/privacy" className="link-underline transition-colors hover:text-foreground">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="transition-colors hover:text-foreground">
+            <Link href="/terms" className="link-underline transition-colors hover:text-foreground">
               Terms of Service
             </Link>
           </div>

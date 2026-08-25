@@ -36,6 +36,7 @@ export default function RootLayout({
     >
       <body className="font-sans">
         <ThemeProvider defaultTheme="dark" enableSystem={false}>
+          <div aria-hidden className="bg-grid-fade pointer-events-none fixed inset-0 -z-10" />
           {children}
         <SpeedInsights />
         <Analytics />

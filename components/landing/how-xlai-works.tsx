@@ -1,4 +1,6 @@
 import { Compass, Hammer, Rocket, CheckCircle2, CalendarCheck, BarChart3 } from "lucide-react"
+import { Reveal } from "@/components/ui/reveal"
+import { TimelineStep } from "@/components/landing/timeline-step"
 
 const steps = [
   {
@@ -36,30 +38,23 @@ const steps = [
 export function HowXlaiWorks() {
   return (
     <section id="how" className="mx-auto max-w-3xl px-4 py-24 md:px-8">
-      <p className="mb-2 text-xs font-bold uppercase tracking-widest text-primary">How XLAI Works</p>
-      <h2 className="mb-12 text-4xl font-black tracking-tight text-foreground">
-        From Strategy to Booked Meetings.
-      </h2>
+      <Reveal>
+        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-primary">How XLAI Works</p>
+        <h2 className="mb-12 text-4xl font-black tracking-tight text-foreground">
+          From Strategy to Booked Meetings.
+        </h2>
+      </Reveal>
 
       <div className="flex flex-col">
         {steps.map((s, i) => (
-          <div key={s.title} className="flex gap-5 pb-8 last:pb-0">
-            {/* Timeline spine */}
-            <div className="flex flex-col items-center">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-full border border-border bg-card">
-                <s.icon className="size-5 text-primary" strokeWidth={2} />
-              </div>
-              {i < steps.length - 1 && <div className="mt-2 w-px flex-1 bg-border" />}
-            </div>
-
-            {/* Content */}
-            <div className="pt-2 pb-4">
-              <h3 className="mb-1 text-lg font-bold text-foreground">
-                0{i + 1} — {s.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">{s.body}</p>
-            </div>
-          </div>
+          <TimelineStep
+            key={s.title}
+            icon={<s.icon className="size-5 text-primary" strokeWidth={2} />}
+            title={s.title}
+            body={s.body}
+            index={i}
+            isLast={i === steps.length - 1}
+          />
         ))}
       </div>
     </section>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { Menu, X, ArrowRight } from "lucide-react"
@@ -17,9 +17,17 @@ const links = [
 
 export function Nav() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
   const isCareersPage = pathname === "/careers"
   const hashHref = (hash: string) => (pathname === "/" ? hash : `/${hash}`)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
 
   return (
     <>
@@ -35,8 +43,9 @@ export function Nav() {
 
       <header
         className={cn(
-          "fixed inset-x-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md transition-[top] duration-200",
-          isCareersPage ? "top-0" : "top-10"
+          "fixed inset-x-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md transition-[top,box-shadow,background-color] duration-200",
+          isCareersPage ? "top-0" : "top-10",
+          scrolled && "bg-background/95 shadow-lg shadow-black/10"
         )}
       >
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-8">
@@ -51,7 +60,7 @@ export function Nav() {
               <Link
                 key={l.href}
                 href={l.href.startsWith("/") ? l.href : hashHref(l.href)}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                className="link-underline text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
                 {l.label}
               </Link>
